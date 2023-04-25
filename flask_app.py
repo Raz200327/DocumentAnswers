@@ -60,8 +60,8 @@ def learn():
         session["docsearch"] = docsearch
         os.remove(path)
 
-        return render_template("learn.html")
-    return render_template("learn.html")
+        return render_template("index.html")
+    return render_template("index.html")
 
 
 @app.route('/process_message', methods=['POST'])
