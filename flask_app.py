@@ -31,7 +31,7 @@ def learn():
         global res
         open_ai_api = request.form.get("openai-key")
         document = request.files.get("file_input")
-        path = f"./files/{document.filename}"
+        path = f"./files/{random.randint(436785647637, 345867456783837465453876)}{document.filename}"
         document.save(path)
 
 
