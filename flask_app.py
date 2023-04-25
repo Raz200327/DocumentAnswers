@@ -30,6 +30,7 @@ def learn():
         global index
         global res
         open_ai_api = request.form.get("openai-key")
+        openai.api_key = open_ai_api
         document = request.files.get("file_input")
         path = f"./files/{random.randint(436785647637, 345867456783837465453876)}{document.filename}"
         document.save(path)
@@ -72,24 +73,30 @@ def process_message():
 
     docs = session.get("docsearch").similarity_search(text)
     chain = load_qa_chain(OpenAI(), chain_type="stuff")
-    augmented_query = docs[0].page_content + docs[1].page_content + "\n\n" + "QUESTION: " + text
+    augmented_query = docs[0].page_content + docs[1].page_content + "\n\n" + " QUESTION: " + text
     print(augmented_query)
+    print(session.get("messages"))
     if session.get("messages") is not None:
+        print("adding")
         if len(session.get("messages")) < 5:
-            session["messages"] = session.get("messages").append({"role": "user", "content": "Here's some context for my question:\n" + augmented_query})
+            print("Actually added")
+            session.get("messages").append({"role": "user", "content": "Here's some context for my question:\n" + augmented_query})
     else:
         session["messages"] = [
             {"role": "system", "content": f"You are a helpful chat bot that answers questions about PDFs"},
             {'role': 'user',
              'content': f"Here is some context for the following question:\n{augmented_query}"}
         ]
+    print(session.get("messages"))
     response = openai.ChatCompletion.create(
         model='gpt-3.5-turbo',
         messages=session.get("messages"),
         temperature=1,
     )
     if len(session.get("messages")) < 5:
-        session["messages"] = session.get("messages").append({"role": "assistant", "content": response})
+        session.get("messages").append({"role": "assistant", "content": response["choices"][0]["message"]["content"]})
+        if len(session.get("messages")) < 3:
+            session.get("messages")[1]["content"] = text
     else:
         print("Removing the past")
         del session.get("messages")[0]
