@@ -20,10 +20,10 @@ Before you start using this application, make sure you have the following prereq
 - langchain
 - flask_session
 
-You can install these dependencies using pip:
+You can start the flask server with
 
 ```bash
-pip install flask openai textract langchain flask_session
+python3 app.py
 ```
 
 ## Note
