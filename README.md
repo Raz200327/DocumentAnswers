@@ -1,4 +1,4 @@
-# Student Document Question Answering Agent
+# Document Question Answering 
 
 This project is a Flask-based web application that provides students with a tool to ask questions about documents. The application uses OpenAI's GPT-3.5 Turbo model for answering questions related to the content of the uploaded documents. This README provides an overview of the project and instructions on how to set it up.
 
@@ -20,7 +20,11 @@ Before you start using this application, make sure you have the following prereq
 - langchain
 - flask_session
 
-You can start the flask server with
+You can install all the dependencies with
+``` bash
+pip install -r requirements.txt
+```
+Starting the web app
 
 ```bash
 python3 flask_app.py
