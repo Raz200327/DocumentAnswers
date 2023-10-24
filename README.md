@@ -23,7 +23,7 @@ Before you start using this application, make sure you have the following prereq
 You can start the flask server with
 
 ```bash
-python3 app.py
+python3 flask_app.py
 ```
 
 ## Note
